@@ -33,4 +33,31 @@ class MainActivityTest : TestCase() {
         Espresso.onView(ViewMatchers.withId(R.id.answerTextView))
             .check(ViewAssertions.matches(ViewMatchers.withText("Answer: 4")))
     }
+
+    @Test
+    fun letOneEmptyFieldGetEmptyOutput() {
+        Espresso.onView(ViewMatchers.withId(R.id.tillsCountTextInputEditText))
+            .perform(ViewActions.typeText("1"), ViewActions.closeSoftKeyboard())
+
+        Espresso.onView(ViewMatchers.withId(R.id.sendButton)).perform(ViewActions.click())
+
+        Espresso.onView(ViewMatchers.withId(R.id.answerTextView))
+            .check(ViewAssertions.matches(ViewMatchers.withText("Answer: Empty fields")))
+    }
+
+    @Test
+    fun inputIncorrectCustomersTimeAndGetIncorrectInputOutput() {
+        Espresso.onView(ViewMatchers.withId(R.id.tillsCountTextInputEditText))
+            .perform(ViewActions.typeText("2"), ViewActions.closeSoftKeyboard())
+
+        Espresso.onView(ViewMatchers.withId(R.id.customersTimeTextInputEditText)).perform(
+            ViewActions.typeText("4 ba 5.6"),
+            ViewActions.closeSoftKeyboard()
+        )
+
+        Espresso.onView(ViewMatchers.withId(R.id.sendButton)).perform(ViewActions.click())
+
+        Espresso.onView(ViewMatchers.withId(R.id.answerTextView))
+            .check(ViewAssertions.matches(ViewMatchers.withText("Answer: Incorrect input")))
+    }
 }

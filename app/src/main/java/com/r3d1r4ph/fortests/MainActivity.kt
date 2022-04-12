@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.r3d1r4ph.fortests.databinding.ActivityMainBinding
+import com.r3d1r4ph.fortests.exception.NotPositiveIntegerException
 import com.r3d1r4ph.fortests.model.TheSupermarketQueue
 
 class MainActivity : AppCompatActivity() {
@@ -17,17 +18,39 @@ class MainActivity : AppCompatActivity() {
 
         with(viewBinding) {
             answerTextView.text = getString(
-                R.string.answer, 0
+                R.string.answer, ""
             )
 
             sendButton.setOnClickListener {
-                answerTextView.text = getString(
-                    R.string.answer, theSupermarketQueue.calculateTotalTimeOfQueues(
-                        customers = customersTimeTextInputEditText.text.toString().split(" ")
-                            .map { it.toInt() }.toIntArray(),
-                        tillsCount = tillsCountTextInputEditText.text.toString().toInt()
+                if (customersTimeTextInputEditText.text.toString().isBlank()
+                    || tillsCountTextInputEditText.text.toString().isBlank()
+                ) {
+
+                    answerTextView.text = getString(R.string.answer, "Empty fields")
+                    return@setOnClickListener
+                }
+
+                val customersIntArray = customersTimeTextInputEditText.text.toString().split(" ")
+                    .map {
+                        val mapped = it.toIntOrNull()
+                        if (mapped == null) {
+                            answerTextView.text = getString(R.string.answer, "Incorrect input")
+                            return@setOnClickListener
+                        }
+                        mapped
+                    }.toIntArray()
+
+
+                answerTextView.text = try {
+                    getString(
+                        R.string.answer, theSupermarketQueue.calculateTotalTimeOfQueues(
+                            customers = customersIntArray,
+                            tillsCount = tillsCountTextInputEditText.text.toString().toInt()
+                        ).toString()
                     )
-                )
+                } catch (e: NotPositiveIntegerException) {
+                    getString(R.string.answer, "Incorrect input")
+                }
             }
 
         }

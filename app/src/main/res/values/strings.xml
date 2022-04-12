@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">ForTests</string>
-    <string name="answer">Answer: %d</string>
+    <string name="answer">Answer: %s</string>
 </resources>
