@@ -32,7 +32,7 @@ class AppDatabaseTest : TestCase() {
     }
 
     @Test
-    fun writeQueueAndReadInList() = runBlocking {
+    fun insertQueueIntoDB() = runBlocking {
         val queue = QueueEntity(
             id = 0,
             tillsCount = 1,
@@ -43,5 +43,34 @@ class AppDatabaseTest : TestCase() {
         queueDao.insert(queue)
 
         assertTrue(queueDao.getAll().contains(queue))
+    }
+
+    @Test
+    fun readQueueListFromDB() = runBlocking {
+        val queueList = listOf(
+            QueueEntity(
+                id = 0,
+                tillsCount = 1,
+                customersTime = "5",
+                minTime = 5
+            ),
+            QueueEntity(
+                id = 1,
+                tillsCount = 4,
+                customersTime = "5",
+                minTime = 5
+            ),
+            QueueEntity(
+                id = 2,
+                tillsCount = 1,
+                customersTime = "5",
+                minTime = 5
+            )
+        )
+        queueDao.insertAll(queueList)
+
+        val resultList = queueDao.getAll()
+
+        assertTrue(resultList == queueList)
     }
 }

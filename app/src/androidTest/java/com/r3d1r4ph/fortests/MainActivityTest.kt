@@ -19,7 +19,7 @@ class MainActivityTest : TestCase() {
         ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun inputDataAndGiveCorrectAnswerActivity() {
+    fun inputDataAndGiveCorrectAnswer() {
         Espresso.onView(ViewMatchers.withId(R.id.tillsCountTextInputEditText))
             .perform(ViewActions.typeText("1"), ViewActions.closeSoftKeyboard())
 

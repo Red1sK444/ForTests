@@ -11,6 +11,9 @@ interface QueueDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(queueEntity: QueueEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(queueEntities: List<QueueEntity>)
+
     @Query("SELECT * FROM queue")
     suspend fun getAll(): List<QueueEntity>
 }
