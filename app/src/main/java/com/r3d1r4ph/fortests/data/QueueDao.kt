@@ -16,4 +16,7 @@ interface QueueDao {
 
     @Query("SELECT * FROM queue")
     suspend fun getAll(): List<QueueEntity>
+
+    @Query("SELECT * FROM queue WHERE id=:id")
+    suspend fun getById(id: Int): QueueEntity?
 }

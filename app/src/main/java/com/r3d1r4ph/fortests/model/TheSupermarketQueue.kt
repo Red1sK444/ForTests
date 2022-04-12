@@ -47,6 +47,7 @@ class TheSupermarketQueue {
                 new
             }.toMutableList()
         } while (minDuration > 0)
+
         return totalDuration
     }
 }

@@ -73,4 +73,12 @@ class AppDatabaseTest : TestCase() {
 
         assertTrue(resultList == queueList)
     }
+
+    @Test
+    fun readNonExistentQueueById() = runBlocking {
+
+        val queue = queueDao.getById(0)
+
+        assertTrue(queue === null)
+    }
 }
