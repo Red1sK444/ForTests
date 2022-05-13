@@ -1,3 +1,5 @@
 # ForTests
 
-Task: https://www.codewars.com/kata/57b06f90e298a7b53d000a86/discuss/java
+**Задача:** https://www.codewars.com/kata/57b06f90e298a7b53d000a86/discuss/java. Необходимо определить минимальное время, которое будет затрачено на проход очереди из N человек по M кассам.
+
+Под нее написаны Unit, Интеграционные и e2e тесты, используя фреймворки JUnit и Espresso. 
